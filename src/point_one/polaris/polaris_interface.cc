@@ -102,7 +102,7 @@ const uint8_t* PolarisInterface::GetRecvBuffer() const {
 }
 
 /******************************************************************************/
-void PolarisInterface::HandleRTCMData(void* ptr, PolarisContext_t* context,
+void PolarisInterface::HandleRTCMData(void* ptr, __attribute__((unused)) PolarisContext_t* context,
                                       const uint8_t* buffer,
                                       size_t size_bytes) {
   auto interface = static_cast<PolarisInterface*>(ptr);
