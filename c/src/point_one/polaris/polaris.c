@@ -324,7 +324,7 @@ int Polaris_ConnectTo(PolarisContext_t* context, const char* endpoint_url,
 #else
   ret = send(context->socket, context->recv_buffer, message_size, 0);
 #endif
-  if (ret != message_size) {
+  if ((size_t)ret != message_size) {
     P1_PrintReadWriteError(context, "Error sending authentication token", ret);
     CloseSocket(context, 1);
     return POLARIS_SEND_ERROR;
@@ -369,7 +369,7 @@ int Polaris_ConnectWithoutAuth(PolarisContext_t* context,
 #else
     ret = send(context->socket, context->send_buffer, message_size, 0);
 #endif
-    if (ret != message_size) {
+    if ((size_t)ret != message_size) {
       P1_PrintReadWriteError(context, "Error sending unique ID", ret);
       CloseSocket(context, 1);
       return POLARIS_SEND_ERROR;
@@ -442,7 +442,7 @@ int Polaris_SendECEFPosition(PolarisContext_t* context, double x_m, double y_m,
   int ret = send(context->socket, context->send_buffer, message_size, 0);
 #endif
 
-  if (ret != message_size) {
+  if ((size_t)ret != message_size) {
     P1_PrintReadWriteError(context, "Error sending ECEF position", ret);
     return POLARIS_SEND_ERROR;
   } else {
@@ -485,7 +485,7 @@ int Polaris_SendLLAPosition(PolarisContext_t* context, double latitude_deg,
   int ret = send(context->socket, context->send_buffer, message_size, 0);
 #endif
 
-  if (ret != message_size) {
+  if ((size_t)ret != message_size) {
     P1_PrintReadWriteError(context, "Error sending LLA position", ret);
     return POLARIS_SEND_ERROR;
   } else {
@@ -516,7 +516,7 @@ int Polaris_RequestBeacon(PolarisContext_t* context, const char* beacon_id) {
   int ret = send(context->socket, context->send_buffer, message_size, 0);
 #endif
 
-  if (ret != message_size) {
+  if ((size_t)ret != message_size) {
     P1_PrintReadWriteError(context, "Error sending beacon request", ret);
     return POLARIS_SEND_ERROR;
   } else {
@@ -988,7 +988,7 @@ static int SendPOSTRequest(PolarisContext_t* context, const char* endpoint_url,
   ret = send(context->socket, context->recv_buffer, message_size, 0);
 #endif
 
-  if (ret != message_size) {
+  if ((size_t)ret != message_size) {
     P1_PrintReadWriteError(context, "Error sending POST request", ret);
     CloseSocket(context, 1);
     return POLARIS_SEND_ERROR;
